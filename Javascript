@@ -62,7 +62,29 @@
 </head>
 
 <body>
-
+    <h1>Program Belajar JavaScript Dasar</h1>
+    <p>Silahkan isi form dibawh ini dan tekan tombol untuk menjalankannya.</p>
+    <div class="form-group">
+        <label>Masukkan angka random anda (1-100)</label><br>
+        <input type="number" id="inAngka" min="1" max="100" placeholder="Masukkan angka Anda"><br>
+        <div id="errorAngka" class="error-msg">Mohon masukkan angka antara 1 dan 100!!!</div>
+    </div>
+    <div class="form-group">
+        <label>Masukkan alamat Email anda</label><br>
+        <input type="text" id="inEmail" placeholder="example@email.com"><br>
+        <div id="errorEmail" class="error-msg">Mohon masukkan alamat Email yang valid!!!</div>
+    </div>
+    <div class="form-group">
+        <label>Pilih Jurusan : </label><br>
+        <select id="dropJurusan">
+            <option value="">--Pilih Jurusan--</option>
+            <option value="">--Lain-Lain--</option>
+        </select>
+        <div id="errorJurusan" class="error-msg">Mohon pilih jurusan Anda!!!</div>
+    </div>
+    <script>
+        const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
+    </script>
 </body>
 
 </html>
