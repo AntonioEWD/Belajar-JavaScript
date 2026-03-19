@@ -65,99 +65,110 @@
     <h1>Program Belajar JavaScript Dasar</h1>
     <p>Silahkan isi form dibawh ini dan tekan tombol untuk menjalankannya.</p>
     <div class="form-group">
-        <label>Masukkan angka random anda (1-100)</label><br>
-        <input type="number" id="inAngka" min="1" max="100" placeholder="Masukkan angka Anda"><br>
-        <div id="errorAngka" class="error-msg">Mohon masukkan angka antara 1 dan 100!!!</div>
-    </div>
-    <div class="form-group">
-        <label>Masukkan alamat Email anda</label><br>
-        <input type="text" id="inEmail" placeholder="example@email.com"><br>
-        <div id="errorEmail" class="error-msg">Mohon masukkan alamat Email yang valid!!!</div>
-    </div>
-    <div class="form-group">
-        <label>Pilih Jurusan : </label><br>
-        <select id="dropJurusan">
-            <option value="">--Pilih Jurusan--</option>
-        </select>
-        <div id="errorJurusan" class="error-msg">Mohon pilih jurusan Anda!!!</div>
-    </div>
-    <div class="form-group">
-        <label> Pilih Semester : </label><br>
-        <div id="radioLevel"></div>
-    </div>
-    <button onclick="jalankanProgram()">Jalankan Program</button>
-    <div id="output">
-        <i>Hasil akan ditampilkan disini...</i>
-    </div>
+        <label>Masukkan nama Anda</label><br>
+        <input type="text" id="inNama" placeholder="Masukkan nama Anda"><br>
+        <div id="errorNama" class="error-msg">Mohon masukkan nama Anda!!!</div>
+        <div class="form-group">
+            <label>Masukkan angka random anda (1-100)</label><br>
+            <input type="number" id="inAngka" min="1" max="100" placeholder="Masukkan angka Anda"><br>
+            <div id="errorAngka" class="error-msg">Mohon masukkan angka antara 1 dan 100!!!</div>
+        </div>
+        <div class="form-group">
+            <label>Masukkan alamat Email anda</label><br>
+            <input type="text" id="inEmail" placeholder="example@email.com"><br>
+            <div id="errorEmail" class="error-msg">Mohon masukkan alamat Email yang valid!!!</div>
+        </div>
+        <div class="form-group">
+            <label>Pilih Jurusan : </label><br>
+            <select id="dropJurusan">
+                <option value="">--Pilih Jurusan--</option>
+            </select>
+            <div id="errorJurusan" class="error-msg">Mohon pilih jurusan Anda!!!</div>
+        </div>
+        <div class="form-group">
+            <label> Pilih Semester : </label><br>
+            <div id="radioLevel"></div>
+        </div>
+        <button onclick="jalankanProgram()">Jalankan Program</button>
+        <div id="output">
+            <i>Hasil akan ditampilkan disini...</i>
+        </div>
 
-    <script>
-        const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
-        const arrSemester = ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"];
-        function elemen() {
-            let dropdown = document.getElementById("dropJurusan");
-            for (let i = 0; i < arrJurusan.length; i++) {
-                dropdown.innerHTML += `<option value="${arrJurusan[i]}">${arrJurusan[i]}</option>`;
+        <script>
+            const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
+            const arrSemester = ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"];
+            function elemen() {
+                let dropdown = document.getElementById("dropJurusan");
+                for (let i = 0; i < arrJurusan.length; i++) {
+                    dropdown.innerHTML += `<option value="${arrJurusan[i]}">${arrJurusan[i]}</option>`;
+                }
+
+                let radioContainer = document.getElementById("radioLevel");
+                for (let i = 0; i < arrSemester.length; i++) {
+                    radioContainer.innerHTML += `<label><input type="radio" name="semester" value="${arrSemester[i]}"> ${arrSemester[i]}</label><br>`;
+                }
             }
 
-            let radioContainer = document.getElementById("radioLevel");
-            for (let i = 0; i < arrSemester.length; i++) {
-                radioContainer.innerHTML += `<label><input type="radio" name="semester" value="${arrSemester[i]}"> ${arrSemester[i]}</label><br>`;
-            }
-        }
+            elemen();
 
-        elemen();
+            function jalankanProgram() {
+                let nama = document.getElementById("inNama").value;
+                // Ambil sebagai teks dulu untuk mengecek apakah inputnya kosong
+                let teksAngka = document.getElementById("inAngka").value;
+                let angka = Number(teksAngka);
+                let email = document.getElementById("inEmail").value;
 
-        function jalankanProgram() {
-            let nama = document.getElementById("inNama").value;
-            // Ambil sebagai teks dulu untuk mengecek apakah inputnya kosong
-            let teksAngka = document.getElementById("inAngka").value;
-            let angka = Number(teksAngka);
-            let email = document.getElementById("inEmail").value;
+                let pesanErrorNama = document.getElementById("errorNama");
+                if (nama === "") {
+                    pesanErrorNama.style.display = "block";
+                    return;
+                } else {
+                    pesanErrorNama.style.display = "none";
+                }
+                // PERBAIKAN: Hapus tanda kutip agar logika IF berjalan benar
+                let pesanErrorAngka = document.getElementById("errorAngka");
+                if (teksAngka === "" || angka < 1 || angka > 100) {
+                    pesanErrorAngka.style.display = "block";
+                    return;
+                } else {
+                    pesanErrorAngka.style.display = "none";
+                }
 
-            // PERBAIKAN: Hapus tanda kutip agar logika IF berjalan benar
-            let pesanErrorAngka = document.getElementById("errorAngka");
-            if (teksAngka === "" || angka < 1 || angka > 100) {
-                pesanErrorAngka.style.display = "block";
-                return;
-            } else {
-                pesanErrorAngka.style.display = "none";
-            }
+                let polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!polaEmail.test(email)) {
+                    alert("Email tidak valid!!!");
+                    document.getElementById("inEmail").value = "";
+                    document.getElementById("inEmail").focus();
+                    return;
+                }
 
-            let polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!polaEmail.test(email)) {
-                alert("Email tidak valid!!!");
-                document.getElementById("inEmail").value = "";
-                document.getElementById("inEmail").focus();
-                return;
-            }
+                let jurusan = document.getElementById("dropJurusan").value;
+                if (jurusan === "") {
+                    alert("Mohon pilih jurusan Anda!!!");
+                    return;
+                }
 
-            let jurusan = document.getElementById("dropJurusan").value;
-            if (jurusan === "") {
-                alert("Mohon pilih jurusan Anda!!!");
-                return;
-            }
+                let semester = document.querySelector('input[name="semester"]:checked');
+                if (!semester) {
+                    alert("Mohon pilih semester Anda!!!");
+                    return;
+                } else {
+                    semester = semester.value;
+                }
 
-            let semester = document.querySelector('input[name="semester"]:checked');
-            if (!semester) {
-                alert("Mohon pilih semester Anda!!!");
-                return;
-            } else {
-                semester = semester.value;
-            }
-
-            // PERBAIKAN: Mengisi variabel hasil dengan template HTML yang menampilkan data
-            let hasil = `
+                // PERBAIKAN: Mengisi variabel hasil dengan template HTML yang menampilkan data
+                let hasil = `
                 <h3>Data Berhasil Dimasukkan:</h3>
-                <p><b>Nama:</b> ${nama || "Tidak diisi"}</p>
+                <p><b>Nama:</b> ${nama}</p>
                 <p><b>Angka:</b> ${angka}</p>
                 <p><b>Email:</b> ${email}</p>
                 <p><b>Jurusan:</b> ${jurusan}</p>
                 <p><b>Semester:</b> ${semester}</p>
             `;
 
-            document.getElementById("output").innerHTML = hasil;
-        }
-    </script>
+                document.getElementById("output").innerHTML = hasil;
+            }
+        </script>
 </body>
 
 </html>
