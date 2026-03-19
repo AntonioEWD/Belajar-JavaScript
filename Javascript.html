@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Latihan Javascript</title>
+    <title>Tugas 4 - JavaScript (Versi Statis)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,24 +13,47 @@
 
         h1 {
             color: darkblue;
+            text-align: center;
         }
 
-        #output {
+        .container {
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* CSS untuk menyembunyikan dan memunculkan form */
+        .step-section {
+            display: none;
+        }
+
+        .step-active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         button {
             padding: 8px 15px;
-            margin-top: 10px;
+            margin-top: 15px;
             cursor: pointer;
             background-color: darkblue;
             color: white;
             border: none;
             border-radius: 5px;
+            font-weight: bold;
         }
 
         button:hover {
@@ -39,10 +62,6 @@
 
         .form-group {
             margin-bottom: 15px;
-            background: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
         }
 
         label {
@@ -51,124 +70,214 @@
             margin-bottom: 5px;
         }
 
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
         .error-msg {
             color: red;
             font-size: 0.9em;
-            margin-top: 5px;
             display: none;
             margin-top: 5px;
+        }
+
+        .tugas-header {
+            border-bottom: 2px solid darkblue;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tugas-header img {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 
 <body>
-    <h1>Program Belajar JavaScript Dasar</h1>
-    <p>Silahkan isi form dibawh ini dan tekan tombol untuk menjalankannya.</p>
-    <div class="form-group">
-        <label>Masukkan nama Anda</label><br>
-        <input type="text" id="inNama" placeholder="Masukkan nama Anda"><br>
-        <div id="errorNama" class="error-msg">Mohon masukkan nama Anda!!!</div>
-        <div class="form-group">
-            <label>Masukkan angka random anda (1-100)</label><br>
-            <input type="number" id="inAngka" min="1" max="100" placeholder="Masukkan angka Anda"><br>
-            <div id="errorAngka" class="error-msg">Mohon masukkan angka antara 1 dan 100!!!</div>
-        </div>
-        <div class="form-group">
-            <label>Masukkan alamat Email anda</label><br>
-            <input type="text" id="inEmail" placeholder="example@email.com"><br>
-            <div id="errorEmail" class="error-msg">Mohon masukkan alamat Email yang valid!!!</div>
-        </div>
-        <div class="form-group">
-            <label>Pilih Jurusan : </label><br>
-            <select id="dropJurusan">
-                <option value="">--Pilih Jurusan--</option>
-            </select>
-            <div id="errorJurusan" class="error-msg">Mohon pilih jurusan Anda!!!</div>
-        </div>
-        <div class="form-group">
-            <label> Pilih Semester : </label><br>
-            <div id="radioLevel"></div>
-        </div>
-        <button onclick="jalankanProgram()">Jalankan Program</button>
-        <div id="output">
-            <i>Hasil akan ditampilkan disini...</i>
+
+    <div class="container">
+        <div class="tugas-header">
+            <img src="Foto Anton.jpg" alt="Foto Mahasiswa">
+            <div>
+                <h3>Tugas 4 - Pemrograman Web</h3>
+                <p><b>Nama:</b> Antonio Eka Wellis Davidson</p>
+                <p><b>NIM:</b> 245314027</p>
+            </div>
         </div>
 
-        <script>
-            const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
-            const arrSemester = ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"];
-            function elemen() {
-                let dropdown = document.getElementById("dropJurusan");
-                for (let i = 0; i < arrJurusan.length; i++) {
-                    dropdown.innerHTML += `<option value="${arrJurusan[i]}">${arrJurusan[i]}</option>`;
-                }
+        <div id="step1" class="step-section step-active">
+            <h3>Langkah 1: Identitas & Angka</h3>
+            <div class="form-group">
+                <label>Masukkan Nama Anda</label><br>
+                <input type="text" id="inNama" placeholder="Nama Anda">
+                <div id="errorNama" class="error-msg">Mohon masukkan nama Anda!!!</div>
+            </div>
+            <div class="form-group">
+                <label>Masukkan angka random anda (1-100)</label><br>
+                <input type="number" id="inAngka" min="1" max="100" placeholder="Masukkan angka Anda">
+                <div id="errorAngka" class="error-msg">Mohon masukkan angka antara 1 dan 100!!!</div>
+            </div>
+            <button onclick="prosesStep1()">Selanjutnya &raquo;</button>
+        </div>
 
-                let radioContainer = document.getElementById("radioLevel");
-                for (let i = 0; i < arrSemester.length; i++) {
-                    radioContainer.innerHTML += `<label><input type="radio" name="semester" value="${arrSemester[i]}"> ${arrSemester[i]}</label><br>`;
-                }
+        <div id="step2" class="step-section">
+            <h3>Langkah 2: Pilihan Jurusan</h3>
+            <div class="form-group">
+                <label>Pilih Jurusan : </label><br>
+                <select id="dropJurusan">
+                    <option value="">--Pilih Jurusan--</option>
+                </select>
+                <div id="errorJurusan" class="error-msg">Mohon pilih jurusan Anda!!!</div>
+            </div>
+            <button onclick="prosesStep2()">Selanjutnya &raquo;</button>
+        </div>
+
+        <div id="step3" class="step-section">
+            <h3>Langkah 3: Pilihan Semester</h3>
+            <div class="form-group">
+                <label> Pilih Semester : </label><br>
+                <div id="radioLevel"></div>
+                <div id="errorSemester" class="error-msg">Mohon pilih semester Anda!!!</div>
+            </div>
+            <button onclick="prosesStep3()">Selanjutnya &raquo;</button>
+        </div>
+
+        <div id="step4" class="step-section">
+            <h3>Langkah 4: Konfirmasi Email</h3>
+            <div class="form-group">
+                <label>Masukkan alamat Email anda</label><br>
+                <input type="text" id="inEmail" placeholder="example@email.com">
+                <div id="errorEmail" class="error-msg">Mohon masukkan alamat Email yang valid!!!</div>
+            </div>
+            <button onclick="prosesStep4()">Proses Data</button>
+        </div>
+
+        <div id="step5" class="step-section">
+            <h3 style="color: darkblue;">Hasil Akhir:</h3>
+            <div id="output"
+                style="background: #eef; padding: 15px; border-left: 5px solid darkblue; font-size: 1.1em; line-height: 1.6;">
+            </div>
+            <button onclick="location.reload()">Mulai Ulang Program</button>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. GENERATE ARRAY JURUSAN & SEMESTER
+        const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
+        const arrSemester = ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"];
+
+        function elemen() {
+            let dropdown = document.getElementById("dropJurusan");
+            for (let i = 0; i < arrJurusan.length; i++) {
+                dropdown.innerHTML += `<option value="${arrJurusan[i]}">${arrJurusan[i]}</option>`;
             }
 
-            elemen();
-
-            function jalankanProgram() {
-                let nama = document.getElementById("inNama").value;
-                // Ambil sebagai teks dulu untuk mengecek apakah inputnya kosong
-                let teksAngka = document.getElementById("inAngka").value;
-                let angka = Number(teksAngka);
-                let email = document.getElementById("inEmail").value;
-
-                let pesanErrorNama = document.getElementById("errorNama");
-                if (nama === "") {
-                    pesanErrorNama.style.display = "block";
-                    return;
-                } else {
-                    pesanErrorNama.style.display = "none";
-                }
-                // PERBAIKAN: Hapus tanda kutip agar logika IF berjalan benar
-                let pesanErrorAngka = document.getElementById("errorAngka");
-                if (teksAngka === "" || angka < 1 || angka > 100) {
-                    pesanErrorAngka.style.display = "block";
-                    return;
-                } else {
-                    pesanErrorAngka.style.display = "none";
-                }
-
-                let polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!polaEmail.test(email)) {
-                    alert("Email tidak valid!!!");
-                    document.getElementById("inEmail").value = "";
-                    document.getElementById("inEmail").focus();
-                    return;
-                }
-
-                let jurusan = document.getElementById("dropJurusan").value;
-                if (jurusan === "") {
-                    alert("Mohon pilih jurusan Anda!!!");
-                    return;
-                }
-
-                let semester = document.querySelector('input[name="semester"]:checked');
-                if (!semester) {
-                    alert("Mohon pilih semester Anda!!!");
-                    return;
-                } else {
-                    semester = semester.value;
-                }
-
-                // PERBAIKAN: Mengisi variabel hasil dengan template HTML yang menampilkan data
-                let hasil = `
-                <h3>Data Berhasil Dimasukkan:</h3>
-                <p><b>Nama:</b> ${nama}</p>
-                <p><b>Angka:</b> ${angka}</p>
-                <p><b>Email:</b> ${email}</p>
-                <p><b>Jurusan:</b> ${jurusan}</p>
-                <p><b>Semester:</b> ${semester}</p>
+            let radioContainer = document.getElementById("radioLevel");
+            for (let i = 0; i < arrSemester.length; i++) {
+                radioContainer.innerHTML += `
+                <div style="margin-bottom: 5px;">
+                    <input type="radio" id="sem${i}" name="semester" value="${arrSemester[i]}">
+                    <label style="font-weight: normal; cursor: pointer;" for="sem${i}">${arrSemester[i]}</label>
+                </div>
             `;
-
-                document.getElementById("output").innerHTML = hasil;
             }
-        </script>
+        }
+        elemen(); // Langsung dipanggil saat halaman dimuat
+
+        // 2. VARIABEL PENYIMPANAN DATA GLOBAL
+        let dataFinal = {};
+
+        // 3. FUNGSI PINDAH HALAMAN
+        function gantiHalaman(sekarang, tujuan) {
+            document.getElementById("step" + sekarang).classList.remove("step-active");
+            document.getElementById("step" + tujuan).classList.add("step-active");
+        }
+
+        // 4. LOGIKA PER STEP DENGAN ERROR HANDLING
+        function prosesStep1() {
+            let nama = document.getElementById("inNama").value;
+            let teksAngka = document.getElementById("inAngka").value;
+            let angka = Number(teksAngka);
+            let valid = true;
+
+            if (nama.trim() === "") {
+                document.getElementById("errorNama").style.display = "block";
+                valid = false;
+            } else {
+                document.getElementById("errorNama").style.display = "none";
+            }
+
+            if (teksAngka === "" || angka < 1 || angka > 100) {
+                document.getElementById("errorAngka").style.display = "block";
+                valid = false;
+            } else {
+                document.getElementById("errorAngka").style.display = "none";
+            }
+
+            if (!valid) return;
+
+            dataFinal.nama = nama;
+            dataFinal.angka = angka;
+            gantiHalaman(1, 2);
+        }
+
+        function prosesStep2() {
+            let jurusan = document.getElementById("dropJurusan").value;
+            if (jurusan === "") {
+                document.getElementById("errorJurusan").style.display = "block";
+                return;
+            }
+            document.getElementById("errorJurusan").style.display = "none";
+
+            dataFinal.jurusan = jurusan;
+            gantiHalaman(2, 3);
+        }
+
+        function prosesStep3() {
+            let semester = document.querySelector('input[name="semester"]:checked');
+            if (!semester) {
+                document.getElementById("errorSemester").style.display = "block";
+                return;
+            }
+            document.getElementById("errorSemester").style.display = "none";
+
+            dataFinal.semester = semester.value;
+            gantiHalaman(3, 4);
+        }
+
+        function prosesStep4() {
+            let email = document.getElementById("inEmail").value;
+            let polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!polaEmail.test(email)) {
+                document.getElementById("errorEmail").style.display = "block";
+                document.getElementById("inEmail").focus();
+                return;
+            }
+            document.getElementById("errorEmail").style.display = "none";
+
+            dataFinal.email = email;
+
+            // Cetak output sesuai format yang ada di dokumen
+            let kalimatHasil = `Hallo, nama saya <b>${dataFinal.nama}</b>, email <b>${dataFinal.email}</b>. Saya memilih angka acak <b>${dataFinal.angka}</b>, dan saya terdaftar di jurusan <b>${dataFinal.jurusan}</b> untuk <b>${dataFinal.semester}</b>.`;
+
+            document.getElementById("output").innerHTML = kalimatHasil;
+            gantiHalaman(4, 5);
+        }
+    </script>
 </body>
 
 </html>
