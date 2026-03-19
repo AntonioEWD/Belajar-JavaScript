@@ -105,15 +105,18 @@
             }
         }
 
-        function jalankanProgram() {
-            let hasil = "";
+        elemen();
 
+        function jalankanProgram() {
             let nama = document.getElementById("inNama").value;
-            let angka = Number(document.getElementById("inAngka").value);
+            // Ambil sebagai teks dulu untuk mengecek apakah inputnya kosong
+            let teksAngka = document.getElementById("inAngka").value;
+            let angka = Number(teksAngka);
             let email = document.getElementById("inEmail").value;
 
+            // PERBAIKAN: Hapus tanda kutip agar logika IF berjalan benar
             let pesanErrorAngka = document.getElementById("errorAngka");
-            if (angka === "" || angka < 1 || angka > 100) {
+            if (teksAngka === "" || angka < 1 || angka > 100) {
                 pesanErrorAngka.style.display = "block";
                 return;
             } else {
@@ -127,6 +130,7 @@
                 document.getElementById("inEmail").focus();
                 return;
             }
+
             let jurusan = document.getElementById("dropJurusan").value;
             if (jurusan === "") {
                 alert("Mohon pilih jurusan Anda!!!");
@@ -140,6 +144,17 @@
             } else {
                 semester = semester.value;
             }
+
+            // PERBAIKAN: Mengisi variabel hasil dengan template HTML yang menampilkan data
+            let hasil = `
+                <h3>Data Berhasil Dimasukkan:</h3>
+                <p><b>Nama:</b> ${nama || "Tidak diisi"}</p>
+                <p><b>Angka:</b> ${angka}</p>
+                <p><b>Email:</b> ${email}</p>
+                <p><b>Jurusan:</b> ${jurusan}</p>
+                <p><b>Semester:</b> ${semester}</p>
+            `;
+
             document.getElementById("output").innerHTML = hasil;
         }
     </script>
