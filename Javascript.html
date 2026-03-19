@@ -25,7 +25,6 @@
             margin: auto;
         }
 
-        /* CSS untuk menyembunyikan dan memunculkan form */
         .step-section {
             display: none;
         }
@@ -175,7 +174,6 @@
     </div>
 
     <script>
-        // 1. GENERATE ARRAY JURUSAN & SEMESTER
         const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
         const arrSemester = ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"];
 
@@ -195,18 +193,15 @@
             `;
             }
         }
-        elemen(); // Langsung dipanggil saat halaman dimuat
+        elemen();
 
-        // 2. VARIABEL PENYIMPANAN DATA GLOBAL
         let dataFinal = {};
 
-        // 3. FUNGSI PINDAH HALAMAN
         function gantiHalaman(sekarang, tujuan) {
             document.getElementById("step" + sekarang).classList.remove("step-active");
             document.getElementById("step" + tujuan).classList.add("step-active");
         }
 
-        // 4. LOGIKA PER STEP DENGAN ERROR HANDLING
         function prosesStep1() {
             let nama = document.getElementById("inNama").value;
             let teksAngka = document.getElementById("inAngka").value;
@@ -271,7 +266,6 @@
 
             dataFinal.email = email;
 
-            // Cetak output sesuai format yang ada di dokumen
             let kalimatHasil = `Hallo, nama saya <b>${dataFinal.nama}</b>, email <b>${dataFinal.email}</b>. Saya memilih angka acak <b>${dataFinal.angka}</b>, dan saya terdaftar di jurusan <b>${dataFinal.jurusan}</b> untuk <b>${dataFinal.semester}</b>.`;
 
             document.getElementById("output").innerHTML = kalimatHasil;
