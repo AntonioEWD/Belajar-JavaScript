@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Latihan Javascript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        #output {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: navy;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .error-msg {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Program Belajar JavaScript Dasar</h1>
+    <p>Silahkan isi form dibawh ini dan tekan tombol untuk menjalankannya.</p>
+    <div class="form-group">
+        <label>Masukkan angka random anda (1-100)</label><br>
+        <input type="number" id="inAngka" min="1" max="100" placeholder="Masukkan angka Anda"><br>
+        <div id="errorAngka" class="error-msg">Mohon masukkan angka antara 1 dan 100!!!</div>
+    </div>
+    <div class="form-group">
+        <label>Masukkan alamat Email anda</label><br>
+        <input type="text" id="inEmail" placeholder="example@email.com"><br>
+        <div id="errorEmail" class="error-msg">Mohon masukkan alamat Email yang valid!!!</div>
+    </div>
+    <div class="form-group">
+        <label>Pilih Jurusan : </label><br>
+        <select id="dropJurusan">
+            <option value="">--Pilih Jurusan--</option>
+        </select>
+        <div id="errorJurusan" class="error-msg">Mohon pilih jurusan Anda!!!</div>
+    </div>
+    <div class="form-group">
+        <label> Pilih Semester : </label><br>
+        <div id="radioLevel"></div>
+    </div>
+    <button onclick="jalankanProgram()">Jalankan Program</button>
+    <div id="output">
+        <i>Hasil akan ditampilkan disini...</i>
+    </div>
+
+    <script>
+        const arrJurusan = ["Teknik Informatika", "Teknik Mesin", "Matematika", "Farmasi", "Mekatronika"];
+        const arrSemester = ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"];
+        function elemen() {
+            let dropdown = document.getElementById("dropJurusan");
+            for (let i = 0; i < arrJurusan.length; i++) {
+                dropdown.innerHTML += `<option value="${arrJurusan[i]}">${arrJurusan[i]}</option>`;
+            }
+
+            let radioContainer = document.getElementById("radioLevel");
+            for (let i = 0; i < arrSemester.length; i++) {
+                radioContainer.innerHTML += `<label><input type="radio" name="semester" value="${arrSemester[i]}"> ${arrSemester[i]}</label><br>`;
+            }
+        }
+
+        function jalankanProgram() {
+            let hasil = "";
+
+            let nama = document.getElementById("inNama").value;
+            let angka = Number(document.getElementById("inAngka").value);
+            let email = document.getElementById("inEmail").value;
+
+            let pesanErrorAngka = document.getElementById("errorAngka");
+            if (angka === "" || angka < 1 || angka > 100) {
+                pesanErrorAngka.style.display = "block";
+                return;
+            } else {
+                pesanErrorAngka.style.display = "none";
+            }
+
+            let polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!polaEmail.test(email)) {
+                alert("Email tidak valid!!!");
+                document.getElementById("inEmail").value = "";
+                document.getElementById("inEmail").focus();
+                return;
+            }
+            let jurusan = document.getElementById("dropJurusan").value;
+            if (jurusan === "") {
+                alert("Mohon pilih jurusan Anda!!!");
+                return;
+            }
+
+            let semester = document.querySelector('input[name="semester"]:checked');
+            if (!semester) {
+                alert("Mohon pilih semester Anda!!!");
+                return;
+            } else {
+                semester = semester.value;
+            }
+            document.getElementById("output").innerHTML = hasil;
+        }
+    </script>
+</body>
+
+</html>
